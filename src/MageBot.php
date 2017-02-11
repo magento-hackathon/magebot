@@ -3,8 +3,11 @@
 namespace FireGento\MageBot;
 
 use FireGento\MageBot\Botman\BotmanConfig;
+use FireGento\MageBot\Botman\BotmanWebDriver;
+use Magento\Framework\Shell\Driver;
 use Mpociot\BotMan\BotMan;
 use Mpociot\BotMan\BotManFactory;
+use Mpociot\BotMan\DriverManager;
 use Mpociot\BotMan\Interfaces\CacheInterface;
 
 /**
@@ -27,6 +30,7 @@ class MageBot
 
     public function start()
     {
+        DriverManager::loadDriver(BotmanWebDriver::class);
         $botman = BotManFactory::create($this->config->toArray(), $this->cache);
 
         $botman->hears('hello', function (BotMan $bot) {
