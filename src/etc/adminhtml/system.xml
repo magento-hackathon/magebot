@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="magebot" translate="label" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>MageBot</label>
+            <tab>service</tab>
+            <resource>FireGento_MageBot::config_magebot</resource>
+            <group id="hipchat" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>HipChat</label>
+                <field id="urls" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>URLs</label>
+                </field>
+            </group>
+            <group id="nexmo" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Nexmo</label>
+                <field id="key" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Key</label>
+                </field>
+                <field id="secret" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Secret</label>
+                </field>
+            </group>
+            <group id="microsoft" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Microsoft</label>
+                <field id="bot_handle" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Bot Handle</label>
+                </field>
+                <field id="app_id" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>App ID</label>
+                </field>
+                <field id="app_key" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>App Key</label>
+                </field>
+            </group>
+            <group id="slack_realtime_api" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Slack Realtime API</label>
+                <field id="token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Token</label>
+                </field>
+            </group>
+            <group id="slack_webhook" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Slack Outgoing Webook</label>
+                <field id="dummy" translate="label" type="label" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>No configuration needed</label>
+                </field>
+            </group>
+            <group id="telegram" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Telegram</label>
+                <field id="token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Token</label>
+                </field>
+            </group>
+
+            <group id="facebook" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Facebook</label>
+                <field id="token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Token</label>
+                </field>
+                <field id="app_secret" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>App Secret</label>
+                </field>
+            </group>
+            <group id="wechat" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>WeChat</label>
+                <field id="app_id" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>App ID</label>
+                </field>
+                <field id="app_key" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>App Key</label>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
