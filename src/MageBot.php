@@ -65,8 +65,10 @@ class MageBot
     public function start()
     {
         DriverManager::loadDriver(BotmanWebDriver::class);
+
+        /** @var BotMan $botman */
         $botman = BotManFactory::create($this->config->toArray(), $this->cache);
-        $botman->verifyServices('gnagnagna');
+        $this->config->configureBotMan($botman);
 
         $botman->hears('hi|hello|hallo', function (BotMan $bot) {
             $bot->reply('Hi! Current commands: list, group');

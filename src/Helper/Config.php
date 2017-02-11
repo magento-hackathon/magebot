@@ -5,6 +5,7 @@ namespace FireGento\MageBot\Helper;
 use FireGento\MageBot\Botman\BotmanConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
+use Mpociot\BotMan\BotMan;
 
 /**
  * Class Config
@@ -46,6 +47,7 @@ class Config implements BotmanConfig
      */
     const CONFIG_PATH_FACEBOOK_TOKEN = 'magebot/facebook/token';
     const CONFIG_PATH_FACEBOOK_APP_SECRET = 'magebot/facebook/app_secret';
+    const CONFIG_PATH_FACEBOOK_WEBHOOK_TOKEN = 'magebot/facebook/webhook_token';
 
     /**
      * configurations keys wechat
@@ -170,6 +172,16 @@ class Config implements BotmanConfig
     }
 
     /**
+     * Returns the configured value for the config value magebot/facebook/webhook_token
+     *
+     * @return string | null
+     */
+    private function getMageBotFacebookWebhookToken()
+    {
+        return $this->scopeConfig->getValue(Config::CONFIG_PATH_FACEBOOK_WEBHOOK_TOKEN, ScopeInterface::SCOPE_STORE);
+    }
+
+    /**
      * Returns the configured value for the config value magebot/facebook/app_secret
      *
      * @return string | null
@@ -208,5 +220,15 @@ class Config implements BotmanConfig
             'wechat_app_id' => $this->getMageBotWechatAppId(),
             'wechat_app_key' => $this->getMageBotWechatAppKey()
         ];
+    }
+
+    /**
+     * @param BotMan $botman
+     */
+    public function configureBotMan(BotMan $botman)
+    {
+        if($this->getMageBotFacebookWebhookToken()) {
+            $botman->verifyServices($this->getMageBotFacebookWebhookToken());
+        }
     }
 }

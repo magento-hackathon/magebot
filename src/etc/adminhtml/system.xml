@@ -59,6 +59,9 @@
                 <field id="app_secret" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
                     <label>App Secret</label>
                 </field>
+                <field id="webhook_token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Webhook Token</label>
+                </field>
             </group>
             <group id="wechat" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>WeChat</label>
