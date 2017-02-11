@@ -18,7 +18,7 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     }
     public function testInstantiation()
     {
-        $this->assertInstanceOf(BotmanCacheMagento::class, $this->cache);
+        $this->assertInstanceOf(CacheBridge::class, $this->cache);
     }
     public function testSaveCache()
     {

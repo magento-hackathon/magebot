@@ -5,7 +5,12 @@ namespace FireGento\MageBot\Botman;
 use \Magento\Framework\App\CacheInterface as MagentoCache;
 use Mpociot\BotMan\Interfaces\CacheInterface as BotmanCache;
 
-class BotmanCacheMagento implements BotmanCache
+/**
+ * Connects Magento cache as storage for Botman
+ *
+ * @package FireGento\MageBot\Botman
+ */
+class CacheBridge implements BotmanCache
 {
     const CACHE_TAG_BOTMAN = 'botman';
 
