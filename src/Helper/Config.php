@@ -2,6 +2,7 @@
 
 namespace FireGento\MageBot\Helper;
 
+use FireGento\MageBot\Botman\BotmanConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
 
@@ -10,7 +11,7 @@ use Magento\Store\Model\ScopeInterface;
  *
  * @package FireGento\MageBot\Helper
  */
-class Config
+class Config implements BotmanConfig
 {
     /**
      * configurations keys
@@ -191,7 +192,7 @@ class Config
     /**
      * @return array
      */
-    public function toConfigArray()
+    public function toArray() : array
     {
         return $config = [
             'hipchat_urls' => $this->getMageBotHipChatUrls(),
