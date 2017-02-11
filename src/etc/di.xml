@@ -2,4 +2,5 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <!-- TODO: use BotmanConfigMagento instead -->
     <preference for="\FireGento\MageBot\Botman\BotmanConfig" type="\FireGento\MageBot\Botman\BotmanConfigArray"/>
+    <preference for="\Mpociot\BotMan\Interfaces\CacheInterface" type="\FireGento\MageBot\Botman\BotmanCacheMagento" />
 </config>
