@@ -13,10 +13,12 @@
             </group>
             <group id="nexmo" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Nexmo</label>
-                <field id="key" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                <field id="key" translate="label" type="obscure" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <label>Key</label>
                 </field>
-                <field id="secret" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                <field id="secret" translate="label" type="obscure" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <label>Secret</label>
                 </field>
             </group>
@@ -28,13 +30,15 @@
                 <field id="app_id" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>App ID</label>
                 </field>
-                <field id="app_key" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                <field id="app_key" translate="label" type="obscure" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <label>App Key</label>
                 </field>
             </group>
             <group id="slack_realtime_api" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Slack Realtime API</label>
-                <field id="token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                <field id="token" translate="label" type="obscure" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <label>Token</label>
                 </field>
             </group>
@@ -46,17 +50,20 @@
             </group>
             <group id="telegram" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Telegram</label>
-                <field id="token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                <field id="token" translate="label" type="obscure" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <label>Token</label>
                 </field>
             </group>
 
             <group id="facebook" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Facebook</label>
-                <field id="token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                <field id="token" translate="label" type="obscure" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <label>Token</label>
                 </field>
-                <field id="app_secret" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                <field id="app_secret" translate="label" type="obscure" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <label>App Secret</label>
                 </field>
             </group>
@@ -65,7 +72,8 @@
                 <field id="app_id" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>App ID</label>
                 </field>
-                <field id="app_key" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                <field id="app_key" translate="label" type="obscure" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <label>App Key</label>
                 </field>
             </group>

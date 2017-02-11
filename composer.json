@@ -34,10 +34,10 @@
             "name": "Fabian Schmengler",
             "email": "fs@integer-net.de"
         },
-	{
-	    "name": "Harald Deiser",
-	    "email": "h.deiser@techdivision.com"
-	}
+        {
+            "name": "Harald Deiser",
+            "email": "h.deiser@techdivision.com"
+        }
     ],
     "minimum-stability": "stable"
 }
