@@ -7,56 +7,56 @@
             <resource>FireGento_MageBot::config_magebot</resource>
             <group id="hipchat" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>HipChat</label>
-                <field id="urls" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="urls" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>URLs</label>
                 </field>
             </group>
             <group id="nexmo" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Nexmo</label>
-                <field id="key" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="key" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>Key</label>
                 </field>
-                <field id="secret" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="secret" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>Secret</label>
                 </field>
             </group>
             <group id="microsoft" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Microsoft</label>
-                <field id="bot_handle" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="bot_handle" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>Bot Handle</label>
                 </field>
-                <field id="app_id" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="app_id" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>App ID</label>
                 </field>
-                <field id="app_key" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="app_key" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>App Key</label>
                 </field>
             </group>
             <group id="slack_realtime_api" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Slack Realtime API</label>
-                <field id="token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>Token</label>
                 </field>
             </group>
             <group id="slack_webhook" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Slack Outgoing Webook</label>
-                <field id="dummy" translate="label" type="label" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="dummy" translate="label" type="label" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>No configuration needed</label>
                 </field>
             </group>
             <group id="telegram" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Telegram</label>
-                <field id="token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>Token</label>
                 </field>
             </group>
 
             <group id="facebook" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Facebook</label>
-                <field id="token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>Token</label>
                 </field>
-                <field id="app_secret" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="app_secret" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>App Secret</label>
                 </field>
                 <field id="webhook_token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
@@ -65,10 +65,10 @@
             </group>
             <group id="wechat" translate="label"  sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>WeChat</label>
-                <field id="app_id" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="app_id" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>App ID</label>
                 </field>
-                <field id="app_key" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="app_key" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="0">
                     <label>App Key</label>
                 </field>
             </group>

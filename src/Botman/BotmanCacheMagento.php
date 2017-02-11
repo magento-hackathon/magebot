@@ -27,7 +27,7 @@ class BotmanCacheMagento implements BotmanCache
         if (! $this->has($key)) {
             return $default;
         }
-        return $this->magentoCache->load($key);
+        return $this->deserializeValue($this->magentoCache->load($key));
     }
 
     public function pull($key, $default = null)
@@ -39,7 +39,17 @@ class BotmanCacheMagento implements BotmanCache
 
     public function put($key, $value, $minutes)
     {
-        $this->magentoCache->save($value, $key, [self::CACHE_TAG_BOTMAN], $minutes * 60);
+        $this->magentoCache->save($this->serializeValue($value), $key, [self::CACHE_TAG_BOTMAN], $minutes * 60);
+    }
+
+    private function serializeValue($value) : string
+    {
+        return \json_encode($value);
+    }
+
+    private function deserializeValue(string $value)
+    {
+        return \json_decode($value, true);
     }
 
 }
