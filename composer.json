@@ -3,6 +3,7 @@
     "description": "A Magento 2 integration of the botman chatbot framework",
     "type": "magento2-module",
     "require": {
+        "magento/framework": "^100.1",
         "mpociot/botman": "^1.4"
     },
     "require-dev": {
@@ -21,6 +22,12 @@
             "FireGento\\": "tests"
         }
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.magento.com/"
+        }
+    ],
     "license": "OSL 3.0",
     "authors": [
         {
