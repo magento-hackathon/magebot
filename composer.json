@@ -14,12 +14,12 @@
             "registration.php"
         ],
         "psr-4": {
-            "FireGento\\": "src"
+            "FireGento\\MageBot\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "FireGento\\": "tests"
+            "FireGento\\MageBot\\": "tests"
         }
     },
     "repositories": [

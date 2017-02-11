@@ -1,6 +1,6 @@
 <?php
 
-namespace FireGento;
+namespace FireGento\MageBot;
 
 use PHPUnit\Framework\TestCase;
 

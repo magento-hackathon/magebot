@@ -1,6 +1,6 @@
 <?php
 
-namespace FireGento;
+namespace FireGento\MageBot;
 
 /**
  * Entry point for MageBot features (Magento independent)
