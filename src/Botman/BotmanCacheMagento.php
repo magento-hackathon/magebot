@@ -7,6 +7,8 @@ use Mpociot\BotMan\Interfaces\CacheInterface as BotmanCache;
 
 class BotmanCacheMagento implements BotmanCache
 {
+    const CACHE_TAG_BOTMAN = 'botman';
+
     /** @var  MagentoCache */
     private $magentoCache;
 
@@ -37,7 +39,7 @@ class BotmanCacheMagento implements BotmanCache
 
     public function put($key, $value, $minutes)
     {
-        $this->magentoCache->save($value, $key, ['botman'], $minutes * 60);
+        $this->magentoCache->save($value, $key, [self::CACHE_TAG_BOTMAN], $minutes * 60);
     }
 
 }
