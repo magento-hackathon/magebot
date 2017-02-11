@@ -2,6 +2,7 @@
 namespace FireGento\MageBot\Botman;
 
 use Magento\TestFramework\ObjectManager;
+use Mpociot\BotMan\Conversation;
 use Mpociot\BotMan\Interfaces\CacheInterface;
 
 class CacheTest extends \PHPUnit_Framework_TestCase
@@ -20,14 +21,35 @@ class CacheTest extends \PHPUnit_Framework_TestCase
     {
         $this->assertInstanceOf(CacheBridge::class, $this->cache);
     }
-    public function testSaveCache()
+    /**
+     * @dataProvider dataSaveCache
+     */
+    public function testSaveCache($key, $value)
     {
-        $this->cache->put('foo', 'bar', 1);
-        $this->assertEquals('bar', $this->cache->get('foo'));
+        $this->cache->put($key, $value, 1);
+        $this->assertEquals($value, $this->cache->get($key));
     }
-    public function testSaveCacheWithArray()
+    public static function dataSaveCache()
     {
-        $this->cache->put('foo', ['bar' => 'bar'], 1);
-        $this->assertEquals(['bar' => 'bar'], $this->cache->get('foo'));
+        return [
+            'string' => ['foo', 'bar'],
+            'array' => ['foo', ['bar' => 'bar']],
+            'array_with_object' => [
+                'foo',
+                [
+                    'conversation' => new ConversationStub,
+                ]
+            ],
+        ];
+    }
+}
+
+/**
+ * Anonymous classes cannot be serialized by design, so we need a real stub
+ */
+class ConversationStub extends Conversation
+{
+    public function run()
+    {
     }
 }
