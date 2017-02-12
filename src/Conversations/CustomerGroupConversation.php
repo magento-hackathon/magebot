@@ -4,6 +4,7 @@ namespace FireGento\MageBot\Conversations;
 
 use Magento\Catalog\Model\Product;
 use Mpociot\BotMan\Answer;
+use Mpociot\BotMan\Button;
 use Mpociot\BotMan\Conversation;
 use Mpociot\BotMan\Facebook\Element;
 use Mpociot\BotMan\Facebook\ElementButton;
@@ -12,6 +13,7 @@ use Magento\Catalog\Model\ProductRepository;
 use Magento\Catalog\Block\Product\ImageBuilder;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Mpociot\BotMan\Facebook\GenericTemplate;
+use Mpociot\BotMan\Question;
 
 class CustomerGroupConversation extends Conversation
 {
@@ -70,13 +72,17 @@ class CustomerGroupConversation extends Conversation
 
     private function askForWeight()
     {
-        $botResponse = ButtonTemplate::create('Do you want to lose more than 10kg?')
-            ->addButton(ElementButton::create('Yes')->type('postback')->payload('yes'))
-            ->addButton(ElementButton::create('No')->type('postback')->payload('no'));
+        $question = Question::create('Do you want to lose more than 10kg?')
+            ->fallback('Unable to ask question')
+            ->callbackId('ask_approval')
+            ->addButtons([
+                Button::create('Yes')->value('yes'),
+                Button::create('No')->value('no')
+            ]);
 
-        $this->ask($botResponse, function (Answer $answer) {
+        $this->ask($question, function (Answer $answer) {
 
-            if($answer->getText() === "yes") {
+            if($answer->getValue() === "yes") {
 
                 // ask for member status
 
@@ -104,13 +110,17 @@ class CustomerGroupConversation extends Conversation
     {
         $this->say('Loosing much Weight works best in a group.');
 
-        $botResponse = ButtonTemplate::create('Are you currenty a Weight Watchers member?')
-            ->addButton(ElementButton::create('Yes')->type('postback')->payload('yes'))
-            ->addButton(ElementButton::create('No')->type('postback')->payload('no'));
+        $question = Question::create('Are you currently a Weight Watchers member?')
+            ->fallback('Unable to ask question')
+            ->callbackId('ask_approval')
+            ->addButtons([
+                Button::create('Yes, I am')->value('yes'),
+                Button::create('Not yet')->value('no')
+            ]);
 
-        $this->ask($botResponse, function (Answer $answer) {
+        $this->ask($question, function (Answer $answer) {
 
-            if($answer->getText() === "yes") {
+            if($answer->getValue() === "yes") {
 
                 $this->say('Nice, you can try our cookbooks for healthier eating to speed up your progress or take alook at our fitness stuff');
 
@@ -142,13 +152,17 @@ class CustomerGroupConversation extends Conversation
 
     private function askFinalQuestion()
     {
-        $response = ButtonTemplate::create('Anything else I can help you with?')
-            ->addButton(ElementButton::create('Yes')->type('postback')->payload('yes'))
-            ->addButton(ElementButton::create('No')->type('postback')->payload('no'));
+        $question = Question::create('Anything else I can help you with?')
+            ->fallback('Unable to ask question')
+            ->callbackId('ask_approval')
+            ->addButtons([
+                Button::create('Yes')->value('yes'),
+                Button::create('No, thanks')->value('no')
+            ]);
 
-        $this->ask($response, function (Answer $answer) {
+        $this->ask($question, function (Answer $answer) {
 
-            if($answer->getText() === "yes") {
+            if($answer->getValue() === "yes") {
                 $this->askForMainGroup();
             } else {
                 $this->say('Ok, goodbye!');
