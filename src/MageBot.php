@@ -98,7 +98,7 @@ class MageBot
         });
 
         $botman->hears('group', function (BotMan $bot) {
-            //$bot->startConversation(new CustomerGroupConversation);
+            $bot->startConversation(new CustomerGroupConversation);
         });
 
         $botman->listen();

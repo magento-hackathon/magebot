@@ -3,9 +3,15 @@
 namespace FireGento\MageBot\Botman;
 
 use \Magento\Framework\App\CacheInterface as MagentoCache;
+use Mpociot\BotMan\Conversation;
 use Mpociot\BotMan\Interfaces\CacheInterface as BotmanCache;
 
-class BotmanCacheMagento implements BotmanCache
+/**
+ * Connects Magento cache as storage for Botman
+ *
+ * @package FireGento\MageBot\Botman
+ */
+class CacheBridge implements BotmanCache
 {
     const CACHE_TAG_BOTMAN = 'botman';
 
@@ -44,12 +50,12 @@ class BotmanCacheMagento implements BotmanCache
 
     private function serializeValue($value) : string
     {
-        return \json_encode($value);
+        return \serialize($value);
     }
 
     private function deserializeValue(string $value)
     {
-        return \json_decode($value, true);
+        return \unserialize($value, ['allowed_classes' => true]);
     }
 
 }
