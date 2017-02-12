@@ -20,6 +20,10 @@ class BotmanWebDriver extends Driver
      * @var Request
      */
     private $request;
+    /**
+     * @var array
+     */
+    private $replies;
 
     public function buildPayload(Request $request)
     {
@@ -60,8 +64,10 @@ class BotmanWebDriver extends Driver
 
     public function reply($message, $matchingMessage, $additionalParameters = [])
     {
-        // cannot use DI with botman drivers, so just echo:
-        echo $message;
+        $this->replies[] = [
+            'message' => $message,
+            'parameters' => $additionalParameters,
+            ];
     }
 
     public function getName()
@@ -69,4 +75,12 @@ class BotmanWebDriver extends Driver
         return self::DRIVER_NAME;
     }
 
+    public function __destruct()
+    {
+        // cannot use DI with botman drivers or access botman driver from third party code, so just echo at the end of the request:
+        if (!empty($this->replies)) {
+            header('Content-type: application/json; charset=utf-8', true);
+            echo json_encode($this->replies);
+        }
+    }
 }
