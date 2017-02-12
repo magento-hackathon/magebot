@@ -66,7 +66,8 @@
                     <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <label>App Secret</label>
                 </field>
-                <field id="webhook_token" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                <field id="webhook_token" translate="label" type="obscure" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
                     <label>Webhook Token</label>
                 </field>
             </group>

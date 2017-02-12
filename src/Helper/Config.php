@@ -61,13 +61,19 @@ class Config implements BotmanConfig
     protected $scopeConfig;
 
     /**
+     * @var \Psr\Log\LoggerInterface
+     */
+    private $logger;
+
+    /**
      * Config constructor.
      *
      * @param ScopeConfigInterface $scopeConfig
      */
-    public function __construct(ScopeConfigInterface $scopeConfig)
+    public function __construct(ScopeConfigInterface $scopeConfig, \Psr\Log\LoggerInterface $logger)
     {
         $this->scopeConfig = $scopeConfig;
+        $this->logger = $logger;
     }
 
     /**
@@ -88,6 +94,8 @@ class Config implements BotmanConfig
      */
     public function getMageBotNexmoKey()
     {
+        $this->logger->alert(__METHOD__);
+        $this->logger->alert($this->scopeConfig->getValue(Config::CONFIG_PATH_NEXMO_KEY, ScopeInterface::SCOPE_STORE));
         return $this->scopeConfig->getValue(Config::CONFIG_PATH_NEXMO_KEY, ScopeInterface::SCOPE_STORE);
     }
 

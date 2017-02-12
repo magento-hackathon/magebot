@@ -1,0 +1,27 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <magebot>
+            <nexmo>
+                <key backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+                <secret backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+            </nexmo>
+            <microsoft>
+                <app_key backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+            </microsoft>
+            <slack_realtime_api>
+                <token backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+            </slack_realtime_api>
+            <telegram>
+                <token backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+            </telegram>
+            <facebook>
+                <token backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+                <app_secret backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+                <webhook_token backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+            </facebook>
+            <wechat>
+                <app_key backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+            </wechat>
+        </magebot>
+    </default>
+</config>
