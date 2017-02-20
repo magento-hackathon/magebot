@@ -7,6 +7,16 @@ use PHPUnit\Framework\TestCase;
 
 class ConversationStateTest extends TestCase
 {
+    protected function setUp()
+    {
+        SerializableAction::setActionFactory(new NewActionFactory());
+    }
+
+    protected function tearDown()
+    {
+        SerializableAction::resetActionFactory();
+    }
+
     public function testCreateWithoutActions()
     {
         $state = ConversationState::createWithoutActions('empty');
@@ -40,6 +50,22 @@ class ConversationStateTest extends TestCase
         static::assertSame($exitActions, $state->exitActions());
     }
 
+    public function testCanBeSerializedWithActions()
+    {
+        $state = ConversationState::createWithEntryActions(
+            'state-1',
+            new ActionList(
+                $this->notSerializableAction(),
+                $this->notSerializableAction()
+            )
+        );
+        $serializedState = serialize($state);
+        /** @var ConversationState $unserializedState */
+        $unserializedState = unserialize($serializedState);
+        static::assertCount(2, $unserializedState->entryActions(), 'Unserialized state should still have two entry actions');
+        $unserializedState->entryActions()->executeAll();
+    }
+
     /**
      * @return ActionList
      */
@@ -54,5 +80,22 @@ class ConversationStateTest extends TestCase
                 }
             )
         );
+    }
+
+    /**
+     * @return Action
+     */
+    private function notSerializableAction() : Action
+    {
+        $action = new FakeAction([]);
+        $action->evilProperty = new class
+        {
+            // in case that serialization of anonymous classes is allowed in future PHP versions:
+            public function __sleep()
+            {
+                throw new \Exception('I should not be serialized');
+            }
+        };
+        return $action;
     }
 }

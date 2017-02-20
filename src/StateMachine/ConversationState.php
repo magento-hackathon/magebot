@@ -54,5 +54,4 @@ final class ConversationState implements State
         // TODO: Implement toArray() method for Magento model
         return [];
     }
-
 }

@@ -13,6 +13,17 @@ final class CallbackAction implements Action
         $this->callback = $callback;
     }
 
+    public function type() : string
+    {
+        return __CLASS__;
+    }
+
+    public function parameters() : array
+    {
+        throw new \RuntimeException("CallbackAction type is not serializable");
+    }
+
+
     public function execute()
     {
         ($this->callback)();

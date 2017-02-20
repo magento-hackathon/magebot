@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace FireGento\MageBot\StateMachine;
 
-interface Actions extends \Iterator
+interface Actions extends \Iterator, \Countable
 {
     public function current() : Action;
 

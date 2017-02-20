@@ -22,4 +22,12 @@ final class ActionList extends \ArrayIterator implements Actions
         }
     }
 
+    public function serialize()
+    {
+        foreach ($this as $key => $action) {
+            $this[$key] = new SerializableAction($action);
+        }
+        return parent::serialize();
+    }
+
 }
