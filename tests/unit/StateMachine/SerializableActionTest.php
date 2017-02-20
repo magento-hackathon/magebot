@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace FireGento\MageBot\StateMachine;
 
 
+use FireGento\MageBot\StateMachine\Serialization\ActionFactory;
+use FireGento\MageBot\StateMachine\Serialization\SerializableAction;
 use PHPUnit\Framework\TestCase;
 
 class SerializableActionTest extends TestCase

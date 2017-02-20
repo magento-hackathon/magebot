@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace FireGento\MageBot\StateMachine;
 
+use FireGento\MageBot\StateMachine\Serialization\NewActionFactory;
+use FireGento\MageBot\StateMachine\Serialization\SerializableAction;
 use PHPUnit\Framework\TestCase;
 
 class ConversationStateTest extends TestCase

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace FireGento\MageBot\StateMachine;
 
+use FireGento\MageBot\StateMachine\Serialization\SerializableAction;
+
 final class ActionList extends \ArrayIterator implements Actions
 {
     public function __construct(Action ...$actions)

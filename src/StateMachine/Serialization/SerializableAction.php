@@ -1,8 +1,10 @@
 <?php
 
 
-namespace FireGento\MageBot\StateMachine;
+namespace FireGento\MageBot\StateMachine\Serialization;
 
+
+use FireGento\MageBot\StateMachine\Action;
 
 final class SerializableAction implements \Serializable, Action
 {
