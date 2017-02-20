@@ -21,4 +21,15 @@ final class FixedTrigger implements Trigger
         return $this->matches;
     }
 
+    public function type() : string
+    {
+        return __CLASS__;
+    }
+
+    public function parameters() : array
+    {
+        return [$this->matches];
+    }
+
+
 }
