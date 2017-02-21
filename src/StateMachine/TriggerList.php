@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace FireGento\MageBot\StateMachine;
 
+use FireGento\MageBot\StateMachine\Serialization\SerializableTrigger;
+
 final class TriggerList extends \ArrayIterator implements Triggers
 {
     public function __construct(Trigger ...$actions)
@@ -23,6 +25,14 @@ final class TriggerList extends \ArrayIterator implements Triggers
             }
         }
         return false;
+    }
+
+    public function serialize()
+    {
+        foreach ($this as $key => $trigger) {
+            $this[$key] = new SerializableTrigger($trigger);
+        }
+        return parent::serialize();
     }
 
 }
