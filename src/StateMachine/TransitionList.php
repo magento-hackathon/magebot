@@ -27,4 +27,9 @@ final class TransitionList extends \ArrayIterator implements Transitions
         return $currentState;
     }
 
+    public function prepend(Transition $transition) : Transitions
+    {
+        return new static($transition, ...$this->getArrayCopy());
+    }
+
 }

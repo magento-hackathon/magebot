@@ -24,4 +24,9 @@ final class StateSet extends \ArrayIterator implements States
         return \in_array($state, $this->getArrayCopy(), true);
     }
 
+    public function with(State $state) : States
+    {
+        return new static($state, ...$this->getArrayCopy());
+    }
+
 }

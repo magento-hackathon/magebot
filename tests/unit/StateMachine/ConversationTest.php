@@ -7,22 +7,12 @@ use PHPUnit\Framework\TestCase;
 
 class ConversationTest extends TestCase
 {
-    public function testConversationStartsInInitialState()
+    public function testConversationCanBeCreatedWithState()
     {
         $initialState = ConversationState::createWithoutActions('initial');
         $states = new StateSet($initialState);
         $conversation = Conversation::create($states, new TransitionList(), $initialState);
-        static::assertInstanceOf(Conversation::class, $conversation);
         static::assertEquals($initialState, $conversation->state());
-    }
-    public function testConversationCanBeInitializedInAnyState()
-    {
-        $initialState = ConversationState::createWithoutActions('initial');
-        $restoredState = ConversationState::createWithoutActions('any');
-        $states = new StateSet($initialState, $restoredState);
-        $conversation = Conversation::createWithState($states, new TransitionList(), $initialState, $restoredState);
-        static::assertInstanceOf(Conversation::class, $conversation);
-        static::assertEquals($restoredState, $conversation->state());
     }
     public function testConversationCanReturnStateList()
     {
@@ -31,7 +21,7 @@ class ConversationTest extends TestCase
         $conversation = Conversation::create($states, new TransitionList(), $initialState);
         static::assertEquals($states, $conversation->states());
     }
-    public function testConversationCannotBeCreatedWithUnknownInitialState()
+    public function testConversationCannotBeCreatedWithUnknownState()
     {
         $initialState = ConversationState::createWithoutActions('initial');
         $states = new StateSet(ConversationState::createWithoutActions('only-something-else'));
@@ -39,14 +29,32 @@ class ConversationTest extends TestCase
         $this->expectException(\DomainException::class);
         Conversation::create($states, new TransitionList(), $initialState);
     }
-    public function testConversationCannotBeCreatedWithUnknownCurrentState()
+
+    public function testConversationCanBeCreatedInUnstartedState()
     {
-        $initialState = ConversationState::createWithoutActions('initial');
+        $initialState = ConversationState::createWithEntryActions('initial', new ActionList($this->actionExpectedNotToBeCalled()));
         $states = new StateSet($initialState);
+        $conversation = Conversation::createUnstarted($states, new TransitionList(), $initialState);
+        static::assertInstanceOf(UnstartedState::class, $conversation->state());
+    }
+
+    public function testUnstartedConversationCanBeStarted()
+    {
+        $initialState = ConversationState::createWithEntryActions('initial', new ActionList($this->actionExpectedToBeCalled()));
+        $states = new StateSet($initialState);
+        $conversation = Conversation::createUnstarted($states, new TransitionList(), $initialState);
+        static::assertSame($initialState, $conversation->continue()->state());
+    }
+
+    public function testUnstartedConversationCannotBeCreatedWithUnknownInitialState()
+    {
+        $initialState = ConversationState::createWithEntryActions('initial', new ActionList($this->actionExpectedNotToBeCalled()));
+        $states = new StateSet(ConversationState::createWithoutActions('only-something-else'));
 
         $this->expectException(\DomainException::class);
-        Conversation::createWithState($states, new TransitionList(), $initialState, ConversationState::createWithoutActions('unknown-current-state'));
+        Conversation::createUnstarted($states, new TransitionList(), $initialState);
     }
+
     public function testTransitionBasedOnTriggers()
     {
         $initialState = ConversationState::createWithoutActions('initial');
@@ -117,4 +125,17 @@ class ConversationTest extends TestCase
             ->getMock();
         $callbackMock->expects(static::once())->method('__invoke');
         return new CallbackAction($callbackMock);
-    }}
+    }
+
+    /**
+     * @return CallbackAction
+     */
+    private function actionExpectedNotToBeCalled() : CallbackAction
+    {
+        $callbackMock = $this->getMockBuilder(\stdClass::class)
+            ->setMethods(['__invoke'])
+            ->getMock();
+        $callbackMock->expects(static::never())->method('__invoke');
+        return new CallbackAction($callbackMock);
+    }
+}

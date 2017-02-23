@@ -14,6 +14,22 @@ class StateSetTest extends TestCase
         $stateSet = new StateSet($stateA, $stateA, $stateB);
         static::assertEquals(
             [$stateA, $stateB],
+            $stateSet->getArrayCopy(),
+            '', 0.0, 10, true
+        );
+    }
+    public function testStateSetCanBeExtended()
+    {
+        $stateA = ConversationState::createWithoutActions('A');
+        $stateB = ConversationState::createWithoutActions('B');
+        $stateSet = new StateSet($stateA);
+        static::assertEquals(
+            [$stateA, $stateB],
+            \iterator_to_array($stateSet->with($stateB)),
+            '', 0.0, 10, true
+        );
+        static::assertEquals(
+            [$stateA],
             $stateSet->getArrayCopy()
         );
     }

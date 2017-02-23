@@ -8,4 +8,6 @@ interface Transitions extends \Iterator
     public function current() : Transition;
 
     public function nextState(State $currentState) : State;
+
+    public function prepend(Transition $transition) : Transitions;
 }
