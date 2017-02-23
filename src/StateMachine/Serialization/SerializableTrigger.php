@@ -5,7 +5,7 @@ namespace FireGento\MageBot\StateMachine\Serialization;
 
 use FireGento\MageBot\StateMachine\Trigger;
 
-final class SerializableTrigger implements \Serializable, Trigger
+final class SerializableTrigger implements \Serializable, \JsonSerializable, Trigger
 {
     /**
      * @var TriggerFactory
@@ -28,7 +28,7 @@ final class SerializableTrigger implements \Serializable, Trigger
     public static function resetTriggerFactory()
     {
         SerializableTrigger::setTriggerFactory(new class implements TriggerFactory {
-            public function create(string $type, array $parameters)
+            public function create(string $type, array $parameters) : Trigger
             {
                 throw new \RuntimeException(
                     'SerializableTrigger::setTriggerFactory() must be called with a real trigger factory before using serialized triggers'
@@ -45,13 +45,19 @@ final class SerializableTrigger implements \Serializable, Trigger
     {
         $this->trigger = $trigger;
     }
+
+    public function jsonSerialize():array
+    {
+        return [
+            'type' => $this->trigger->type(),
+            'parameters' => $this->trigger->parameters()
+        ];
+    }
+
     public function serialize() : string
     {
         return json_encode(
-            [
-                $this->trigger->type(),
-                $this->trigger->parameters()
-            ]
+            array_values($this->jsonSerialize())
         );
     }
 
@@ -75,7 +81,6 @@ final class SerializableTrigger implements \Serializable, Trigger
     {
         return $this->trigger->activated();
     }
-
 
 }
 SerializableTrigger::resetTriggerFactory();

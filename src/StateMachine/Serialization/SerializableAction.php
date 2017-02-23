@@ -5,7 +5,7 @@ namespace FireGento\MageBot\StateMachine\Serialization;
 
 use FireGento\MageBot\StateMachine\Action;
 
-final class SerializableAction implements \Serializable, Action
+final class SerializableAction implements \Serializable, \JsonSerializable, Action
 {
     /**
      * @var ActionFactory
@@ -28,7 +28,7 @@ final class SerializableAction implements \Serializable, Action
     public static function resetActionFactory()
     {
         SerializableAction::setActionFactory(new class implements ActionFactory {
-            public function create(string $type, array $parameters)
+            public function create(string $type, array $parameters) : Action
             {
                 throw new \RuntimeException(
                     'SerializableAction::setActionFactory() must be called with a real action factory before using serialized actions'
@@ -45,13 +45,19 @@ final class SerializableAction implements \Serializable, Action
     {
         $this->action = $action;
     }
+
+    public function jsonSerialize()
+    {
+        return [
+            'type' => $this->action->type(),
+            'parameters' => $this->action->parameters()
+        ];
+    }
+
     public function serialize() : string
     {
         return json_encode(
-            [
-                $this->action->type(),
-                $this->action->parameters()
-            ]
+            array_values($this->jsonSerialize())
         );
     }
 

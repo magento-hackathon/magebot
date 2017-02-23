@@ -44,9 +44,19 @@ final class ConversationTransition implements Transition
         return $currentState == $this->source && $this->triggers->anyActivated();
     }
 
+    /**
+     * Array representation that can be used to store the transition definition in a database. Source and target states
+     * still must be mapped to an ID by the repository
+     *
+     * @return array
+     */
     public function toArray() : array
     {
-        // TODO: Implement toArray() method for Magento model
-        return [];
+        return [
+            'name' => $this->name,
+            'source' => $this->source,
+            'target' => $this->target,
+            'triggers' => json_encode($this->triggers)
+        ];
     }
 }

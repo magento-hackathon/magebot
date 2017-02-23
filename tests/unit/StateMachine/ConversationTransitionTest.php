@@ -37,7 +37,34 @@ class ConversationTransitionTest extends TestCase
         $unserializedTransition = unserialize($serializedTransition);
 
         static::assertTrue($unserializedTransition->triggeredAt($stateFrom));
+    }
 
+    public function testToArray()
+    {
+        $stateFrom = ConversationState::createWithoutActions('denmark');
+        $stateTo = ConversationState::createWithoutActions('germany');
+        $transition = ConversationTransition::create(
+            'shopping tour',
+            $stateFrom,
+            $stateTo,
+            new TriggerList(
+                new FakeTrigger(['alcohol' => 0])
+            )
+        );
+        $transitionAsArray = $transition->toArray();
+        static::assertEquals(
+            ['name', 'source', 'target', 'triggers'],
+            array_keys($transitionAsArray)
+        );
+        static::assertEquals('shopping tour', $transitionAsArray['name']);
+        static::assertSame($stateFrom, $transitionAsArray['source']);
+        static::assertSame($stateTo, $transitionAsArray['target']);
+        static::assertJsonStringEqualsJsonString(
+            json_encode([
+                ['type' => FakeTrigger::class, 'parameters' => ['alcohol' => 0]]
+            ]),
+            $transitionAsArray['triggers']
+        );
     }
 
     private function notSerializableTrigger($activated) : Trigger

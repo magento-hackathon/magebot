@@ -68,6 +68,35 @@ class ConversationStateTest extends TestCase
         $unserializedState->entryActions()->executeAll();
     }
 
+    public function testToArray()
+    {
+        $state = ConversationState::createWithActions(
+            'state name',
+            new ActionList(
+                new FakeAction(['bot' => 'bender'])
+            ),
+            new ActionList(
+                new FakeAction(['bot' => 'marvin', 'mood' => 'depressed'])
+            )
+        );
+        $stateAsArray = $state->toArray();
+        static::assertEquals(
+            ['name', 'entry_actions', 'exit_actions'],
+            array_keys($stateAsArray)
+        );
+        static::assertEquals('state name', $stateAsArray['name']);
+        static::assertJsonStringEqualsJsonString(
+            \json_encode([
+                ['type' => FakeAction::class, 'parameters' => ['bot' => 'bender']],
+            ]), $stateAsArray['entry_actions']
+        );
+        static::assertJsonStringEqualsJsonString(
+            \json_encode([
+                ['type' => FakeAction::class, 'parameters' => ['bot' => 'marvin', 'mood' => 'depressed']],
+            ]), $stateAsArray['exit_actions']
+        );
+    }
+
     /**
      * @return ActionList
      */

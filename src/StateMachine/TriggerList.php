@@ -29,10 +29,22 @@ final class TriggerList extends \ArrayIterator implements Triggers
 
     public function serialize()
     {
+        $this->makeTriggersSerializable();
+        return parent::serialize();
+    }
+
+    public function jsonSerialize()
+    {
+        $this->makeTriggersSerializable();
+        return $this->getArrayCopy();
+    }
+
+    private function makeTriggersSerializable()
+    {
         foreach ($this as $key => $trigger) {
             $this[$key] = new SerializableTrigger($trigger);
         }
-        return parent::serialize();
     }
+
 
 }

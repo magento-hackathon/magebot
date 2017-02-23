@@ -26,10 +26,22 @@ final class ActionList extends \ArrayIterator implements Actions
 
     public function serialize()
     {
+        $this->makeActionsSerializable();
+        return parent::serialize();
+    }
+
+    public function jsonSerialize()
+    {
+        $this->makeActionsSerializable();
+        return $this->getArrayCopy();
+    }
+
+    private function makeActionsSerializable()
+    {
         foreach ($this as $key => $action) {
             $this[$key] = new SerializableAction($action);
         }
-        return parent::serialize();
     }
+
 
 }

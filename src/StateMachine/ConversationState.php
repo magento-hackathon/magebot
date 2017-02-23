@@ -49,9 +49,17 @@ final class ConversationState implements State
         return $this->exitActions;
     }
 
+    /**
+     * Array representation that can be used to store the state definition in a database.
+     *
+     * @return string[]
+     */
     public function toArray() : array
     {
-        // TODO: Implement toArray() method for Magento model
-        return [];
+        return [
+            'name' => $this->name,
+            'entry_actions' => json_encode($this->entryActions()),
+            'exit_actions' => json_encode($this->exitActions()),
+        ];
     }
 }
