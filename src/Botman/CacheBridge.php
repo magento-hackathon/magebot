@@ -2,14 +2,13 @@
 
 namespace FireGento\MageBot\Botman;
 
-use \Magento\Framework\App\CacheInterface as MagentoCache;
-use Mpociot\BotMan\Conversation;
+use Magento\Framework\App\CacheInterface as MagentoCache;
 use Mpociot\BotMan\Interfaces\CacheInterface as BotmanCache;
 
 /**
  * Connects Magento cache as storage for Botman
  *
- * @package FireGento\MageBot\Botman
+ * @todo consider moving into different namespace to keep \Botman Magento independent
  */
 class CacheBridge implements BotmanCache
 {
