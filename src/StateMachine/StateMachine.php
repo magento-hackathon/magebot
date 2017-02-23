@@ -12,11 +12,12 @@ interface StateMachine
     /**
      * Check triggers and apply first matching transition.
      *
+     * Returns state machine in new state
+     *
      * Side effects:
      *  - calls exit and entry actions
-     *  - changes current state
      *
-     * @return void
+     * @return StateMachine
      */
-    public function continue();
+    public function continue() : StateMachine;
 }

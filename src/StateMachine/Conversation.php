@@ -48,13 +48,16 @@ class Conversation implements StateMachine
         return $this->states;
     }
 
-    public function continue()
+    public function continue() : StateMachine
     {
         $nextState = $this->transitions->nextState($this->currentState);
         if ($nextState !== $this->currentState) {
-            $this->currentState->exitActions()->executeAll();
-            $this->currentState = $nextState;
-            $this->currentState->entryActions()->executeAll();
+            $conversation = clone $this;
+            $conversation->currentState->exitActions()->executeAll();
+            $conversation->currentState = $nextState;
+            $conversation->currentState->entryActions()->executeAll();
+            return $conversation;
         }
+        return $this;
     }
 }

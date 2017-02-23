@@ -52,6 +52,7 @@ class ConversationTest extends TestCase
         $initialState = ConversationState::createWithoutActions('initial');
         $alternateState = ConversationState::createWithoutActions('final');
         $unreachableState = ConversationState::createWithoutActions('unreachable');
+        /** @var Conversation $conversation */
         $conversation = Conversation::create(
             new StateSet($initialState, $alternateState),
             new TransitionList(
@@ -62,10 +63,35 @@ class ConversationTest extends TestCase
             $initialState
         );
         static::assertEquals($initialState, $conversation->state());
-        $conversation->continue();
+        $conversation = $conversation->continue();
         static::assertEquals($alternateState, $conversation->state());
-        $conversation->continue();
+        $conversation = $conversation->continue();
         static::assertEquals($initialState, $conversation->state());
+    }
+    public function testNewObjectIfStateChanged()
+    {
+        $initialState = ConversationState::createWithoutActions('initial');
+        $nextState = ConversationState::createWithoutActions('final');
+        $conversation = Conversation::create(
+            new StateSet($initialState, $nextState),
+            new TransitionList(
+                ConversationTransition::createAnonymous($initialState, $nextState, new TriggerList(new FixedTrigger(true)))
+            ),
+            $initialState
+        );
+        static::assertNotSame($conversation, $conversation->continue(), 'continue() should return new object if state changed');
+        static::assertEquals($initialState, $conversation->state(), 'Conversation should be immutable');
+    }
+    public function testNoNewObjectIfStateUnchanged()
+    {
+        $initialState = ConversationState::createWithoutActions('initial');
+        $conversation = Conversation::create(
+            new StateSet($initialState),
+            new TransitionList(
+            ),
+            $initialState
+        );
+        static::assertSame($conversation, $conversation->continue(), 'continue() should return new object if state changed');
     }
     public function testEntryAndExitActions()
     {
@@ -78,8 +104,7 @@ class ConversationTest extends TestCase
             ),
             $initialState
         );
-        $conversation->continue();
-        $conversation->continue();
+        $conversation->continue()->continue();
     }
 
     /**
