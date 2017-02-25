@@ -8,6 +8,7 @@ namespace FireGento\MageBot\StateMachine;
  */
 final class FixedTrigger implements Trigger
 {
+    const PARAM_MATCHES = 'matches';
     /** @var bool */
     private $matches;
 
@@ -28,7 +29,7 @@ final class FixedTrigger implements Trigger
 
     public function parameters() : array
     {
-        return [$this->matches];
+        return [self::PARAM_MATCHES => $this->matches];
     }
 
 

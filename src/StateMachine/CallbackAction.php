@@ -3,6 +3,10 @@ declare(strict_types=1);
 
 namespace FireGento\MageBot\StateMachine;
 
+/**
+ * Action that executes arbitrary callback. This cannot be converted to a serializable action, so it cannot be used
+ * in a conversation. Its main purpose is testing.
+ */
 final class CallbackAction implements Action
 {
     /** @var callable */
