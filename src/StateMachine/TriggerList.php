@@ -7,9 +7,9 @@ use FireGento\MageBot\StateMachine\Serialization\SerializableTrigger;
 
 final class TriggerList extends \ArrayIterator implements Triggers
 {
-    public function __construct(Trigger ...$actions)
+    public function __construct(Trigger ...$triggers)
     {
-        parent::__construct($actions);
+        parent::__construct($triggers);
     }
 
     public function current() : Trigger

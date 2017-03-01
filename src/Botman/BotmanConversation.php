@@ -13,9 +13,15 @@ class BotmanConversation extends BotMan\Conversation
      */
     private $stateMachine;
 
+    public function __construct(BotMan\BotMan $bot, StateMachine\Conversation $stateMachine)
+    {
+        $this->bot = $bot;
+        $this->stateMachine = $stateMachine;
+    }
+
     public function run()
     {
-//        $this->continue(BotMan\Answer::create());
+        $this->continue(BotMan\Answer::create());
     }
 
     /**
@@ -31,11 +37,15 @@ class BotmanConversation extends BotMan\Conversation
      */
     public function continue(BotMan\Answer $answer)
     {
-//        /** @var BotmanConversationContext $context */
-//        $context = $this->stateMachine->context();
-//        $context->setAnswer($answer);
-//        $this->stateMachine->continue();
-//        $this->bot->storeConversation($this, [$this, 'continue']);
+        /** @var BotmanConversationContext $context */
+        $context = $this->stateMachine->context();
+        $context->setAnswer($answer);
+        $this->stateMachine = $this->stateMachine->continue();
+        //in PHP 7.1: Closure::fromCallable()
+        $next = function(BotMan\Answer $answer) {
+            $this->continue($answer);
+        };
+        $this->bot->storeConversation($this, $next);
     }
 
 }
