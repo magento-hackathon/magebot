@@ -82,4 +82,9 @@ class FakeDriver implements DriverInterface
     {
         return $this->botMessages;
     }
+
+    public function resetBotMessages()
+    {
+        $this->botMessages = [];
+    }
 }

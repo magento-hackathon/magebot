@@ -35,6 +35,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class BotmanConversationTest extends TestCase
 {
+    private $username;
+    private $channel;
     /** @var BotMan */
     private $botman;
     /** @var FakeDriver */
@@ -50,6 +52,10 @@ class BotmanConversationTest extends TestCase
         $this->fakeDriver = new FakeDriver();
         ProxyDriver::setInstance($this->fakeDriver);
         $this->botman = BotManFactory::create([]);
+        $conversationDefinitions = new ConversationDefinitionList(
+            $this->mittagessenConversationDefinition($this->botman)
+        );
+        $conversationDefinitions->register($this->botman);
 
         //TODO implement real Botman{Trigger|Action}Factory classes
         SerializableAction::setActionFactory(new class($this->botman) implements ActionFactory {
@@ -81,34 +87,27 @@ class BotmanConversationTest extends TestCase
 
     public function testConversationWithQuestionAndAnswer()
     {
-        $this->fakeDriver->messages = [ new Message('Hallo', 'user123', '#mittagessen') ];
-        $this->botman->hears('Hallo', function(BotMan $botman) {
-            $botman->startConversation(new BotmanConversation($botman, $this->defineConversation($botman)));
-        });
+        $this->username = 'user123';
+        $this->channel = '#mittagessen';
+
+        $this->userWrites('Mittagessen');
         $this->botman->listen();
-
-        static::assertCount(2, $this->fakeDriver->getBotMessages());
-        static::assertEquals(
-            'Mittagessenplan',
-            $this->fakeDriver->getBotMessages()[0]
+        $this->assertBotReplies(
+            [
+                'Mittagessenplan',
+                Question::create('Ihr Kind isst')->addButtons(
+                    [
+                        Button::create('Fisch')->value('fisch'),
+                        Button::create('Fleisch')->value('fleisch')
+                    ]
+                )
+            ]
         );
-        static::assertEquals(
-            Question::create('Ihr Kind isst')->addButtons(
-                [
-                    Button::create('Fisch')->value('fisch'),
-                    Button::create('Fleisch')->value('fleisch')
-                ]
-            ),
-            $this->fakeDriver->getBotMessages()[1]
-        );
-
-        $this->fakeDriver->messages = [ new Message('fisch', 'user123', '#mittagessen') ];
-        $this->botman->loadActiveConversation();
-        static::assertCount(3, $this->fakeDriver->getBotMessages());
-        static::assertEquals('Ihr Kind isst kein Fleisch', $this->fakeDriver->getBotMessages()[2]);
+        $this->userWrites('fisch');
+        $this->assertBotReplies(['Ihr Kind isst kein Fleisch']);
     }
 
-    private function defineConversation(BotMan $botman) : Conversation
+    private function mittagessenConversationDefinition(BotMan $botman) : ConversationDefinition
     {
         $initialState = ConversationState::createWithEntryActions(
             'state-fisch', new ActionList(
@@ -140,6 +139,36 @@ class BotmanConversationTest extends TestCase
             ),
             $initialState, new BotmanConversationContext()
         );
-        return $conversation;
+        return new class($conversation) implements ConversationDefinition {
+            /** @var Conversation */
+            private $conversation;
+
+            public function __construct(Conversation $conversation)
+            {
+                $this->conversation = $conversation;
+            }
+
+            public function patternToStart() : string
+            {
+                return 'Mittagessen';
+            }
+
+            public function create() : Conversation
+            {
+                return $this->conversation;
+            }
+        };
+    }
+
+    private function userWrites(string $text)
+    {
+        $this->fakeDriver->resetBotMessages();
+        $this->fakeDriver->messages = [new Message($text, $this->username, $this->channel)];
+        $this->botman->loadActiveConversation();
+    }
+
+    private function assertBotReplies($replies)
+    {
+        static::assertEquals($replies, $this->fakeDriver->getBotMessages());
     }
 }
