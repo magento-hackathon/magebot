@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace FireGento\MageBot\Botman;
 
+use FireGento\MageBot\StateMachine\ConversationContext;
 use Mpociot\BotMan\BotMan;
 use PHPUnit\Framework\TestCase;
 
@@ -21,6 +22,6 @@ class MessageActionTest extends TestCase
             ->method('reply')
             ->with('Hello, world!');
         $action = new MessageAction($botMock, 'Hello, world!');
-        $action->execute();
+        $action->execute($this->createMock(ConversationContext::class));
     }
 }

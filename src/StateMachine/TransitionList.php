@@ -15,10 +15,10 @@ final class TransitionList extends \ArrayIterator implements Transitions
         return parent::current();
     }
 
-    public function nextState(State $currentState) : State
+    public function nextState(State $currentState, ConversationContext $context) : State
     {
         foreach ($this as $transition) {
-            if ($transition->triggeredAt($currentState)) {
+            if ($transition->triggeredAt($currentState, $context)) {
 
                 return $transition->target();
             }

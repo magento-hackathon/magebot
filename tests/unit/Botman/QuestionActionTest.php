@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace FireGento\MageBot\Botman;
 
+use FireGento\MageBot\StateMachine\ConversationContext;
 use Mpociot\BotMan\BotMan;
 use Mpociot\BotMan\Button;
 use Mpociot\BotMan\Question;
@@ -86,6 +87,6 @@ class QuestionActionTest extends TestCase
             $botMock,
             $message, $answers
         );
-        $action->execute();
+        $action->execute($this->createMock(ConversationContext::class));
     }
 }

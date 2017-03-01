@@ -36,7 +36,7 @@ class ConversationTransitionTest extends TestCase
         /** @var ConversationTransition $unserializedTransition */
         $unserializedTransition = unserialize($serializedTransition);
 
-        static::assertTrue($unserializedTransition->triggeredAt($stateFrom));
+        static::assertTrue($unserializedTransition->triggeredAt($stateFrom, $this->createMock(ConversationContext::class)));
     }
 
     public function testToArray()

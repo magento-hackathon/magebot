@@ -40,7 +40,7 @@ class SerializableTriggerTest extends TestCase
         $unserializedTrigger = unserialize($serializedTrigger);
 
         static::assertEquals($parameters, $unserializedTrigger->parameters());
-        static::assertFalse($unserializedTrigger->activated());
+        static::assertFalse($unserializedTrigger->activated($this->createMock(ConversationContext::class)));
     }
 
     public function testPreventMultipleDecoration()
@@ -56,6 +56,6 @@ class SerializableTriggerTest extends TestCase
         /** @var SerializableTrigger $unserializedTrigger */
         $unserializedTrigger = unserialize($serialized);
         static::assertEquals($parameters, $unserializedTrigger->parameters());
-        static::assertTrue($unserializedTrigger->activated());
+        static::assertTrue($unserializedTrigger->activated($this->createMock(ConversationContext::class)));
     }
 }

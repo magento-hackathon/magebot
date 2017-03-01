@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace FireGento\MageBot\StateMachine\Serialization;
 
+use FireGento\MageBot\StateMachine\ConversationContext;
 use FireGento\MageBot\StateMachine\Trigger;
 
 class LazyLoadingTrigger implements Trigger
@@ -31,9 +32,9 @@ class LazyLoadingTrigger implements Trigger
         $this->parameters = $parameters;
     }
 
-    public function activated() : bool
+    public function activated(ConversationContext $context) : bool
     {
-        return $this->loadedTrigger()->activated();
+        return $this->loadedTrigger()->activated($context);
     }
 
     public function type() : string

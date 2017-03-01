@@ -65,7 +65,7 @@ class ConversationStateTest extends TestCase
         /** @var ConversationState $unserializedState */
         $unserializedState = unserialize($serializedState);
         static::assertCount(2, $unserializedState->entryActions(), 'Unserialized state should still have two entry actions');
-        $unserializedState->entryActions()->executeAll();
+        $unserializedState->entryActions()->executeAll($this->createMock(ConversationContext::class));
     }
 
     public function testToArray()

@@ -26,7 +26,7 @@ final class InitialTransition implements Transition
         return $this->initialState;
     }
 
-    public function triggeredAt(State $currentState) : bool
+    public function triggeredAt(State $currentState, ConversationContext $context) : bool
     {
         return $currentState instanceof UnstartedState;
     }

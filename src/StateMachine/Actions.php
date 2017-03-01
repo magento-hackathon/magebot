@@ -7,5 +7,5 @@ interface Actions extends \Iterator, \Countable, \JsonSerializable
 {
     public function current() : Action;
 
-    public function executeAll();
+    public function executeAll(ConversationContext $context);
 }

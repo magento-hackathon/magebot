@@ -10,7 +10,7 @@ class ActionListTest extends TestCase
     public function testExecuteAll()
     {
         $actionList = new ActionList($this->actionExpectedToBeCalled(), $this->actionExpectedToBeCalled());
-        $actionList->executeAll();
+        $actionList->executeAll($this->createMock(ConversationContext::class));
     }
 
     /**

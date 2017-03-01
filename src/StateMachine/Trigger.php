@@ -8,7 +8,7 @@ interface Trigger
     /**
      * @return bool Return true if trigger condition is met
      */
-    public function activated() : bool;
+    public function activated(ConversationContext $context) : bool;
 
     /**
      * Return type for serialization, will be used with ActionFactory to recreate instance

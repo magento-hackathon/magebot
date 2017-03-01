@@ -28,7 +28,7 @@ final class CallbackAction implements Action
     }
 
 
-    public function execute()
+    public function execute(ConversationContext $context)
     {
         ($this->callback)();
     }

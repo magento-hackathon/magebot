@@ -23,5 +23,5 @@ interface Action
      *
      * @return void
      */
-    public function execute();
+    public function execute(ConversationContext $context);
 }

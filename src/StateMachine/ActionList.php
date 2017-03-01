@@ -17,10 +17,10 @@ final class ActionList extends \ArrayIterator implements Actions
         return parent::current();
     }
 
-    public function executeAll()
+    public function executeAll(ConversationContext $context)
     {
         foreach ($this as $action) {
-            $action->execute();
+            $action->execute($context);
         }
     }
 

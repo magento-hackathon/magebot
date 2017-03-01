@@ -17,10 +17,10 @@ final class TriggerList extends \ArrayIterator implements Triggers
         return parent::current();
     }
 
-    public function anyActivated() : bool
+    public function anyActivated(ConversationContext $context) : bool
     {
         foreach ($this as $trigger) {
-            if ($trigger->activated()) {
+            if ($trigger->activated($context)) {
                 return true;
             }
         }

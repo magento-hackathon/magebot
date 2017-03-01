@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace FireGento\MageBot\Botman;
 
 use FireGento\MageBot\StateMachine\Action;
+use FireGento\MageBot\StateMachine\ConversationContext;
 use Mpociot\BotMan\BotMan;
 use Mpociot\BotMan\Button;
 use Mpociot\BotMan\Question;
@@ -18,6 +19,7 @@ class QuestionAction implements Action
     const ANSWER_PARAM_TEXT = 'text';
     const ANSWER_PARAM_VALUE = 'value';
     const ANSWER_PARAM_IMAGE_URL = 'image_url';
+
     /**
      * @var BotMan
      */
@@ -69,7 +71,7 @@ class QuestionAction implements Action
         ];
     }
 
-    public function execute()
+    public function execute(ConversationContext $context)
     {
         $this->botman->reply(
             Question::create($this->message)->addButtons(

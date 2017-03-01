@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace FireGento\MageBot\Botman;
 
 use FireGento\MageBot\StateMachine\Action;
+use FireGento\MageBot\StateMachine\ConversationContext;
 use Mpociot\BotMan\BotMan;
 
 /**
@@ -37,7 +38,7 @@ class MessageAction implements Action
         ];
     }
 
-    public function execute()
+    public function execute(ConversationContext $context)
     {
         $this->botman->reply($this->message);
     }

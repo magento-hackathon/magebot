@@ -17,7 +17,7 @@ final class FixedTrigger implements Trigger
         $this->matches = $matches;
     }
 
-    public function activated() : bool
+    public function activated(ConversationContext $context) : bool
     {
         return $this->matches;
     }
