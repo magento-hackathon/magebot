@@ -28,7 +28,7 @@ final class FakeTrigger implements Trigger
         return $this->parameters;
     }
 
-    public function activated() : bool
+    public function activated(ConversationContext $context) : bool
     {
         return !empty($this->parameters['activated']);
     }

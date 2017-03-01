@@ -34,8 +34,8 @@ class LazyLoadingActionTest extends TestCase
 
         static::assertEquals(FakeAction::class, $lazyLoadingAction->type());
         static::assertEquals($parameters, $lazyLoadingAction->parameters());
-        $lazyLoadingAction->execute();
-        $lazyLoadingAction->execute();
+        $lazyLoadingAction->execute($this->createMock(ConversationContext::class));
+        $lazyLoadingAction->execute($this->createMock(ConversationContext::class));
 
         static::assertEquals(2, $loadedAction->timesExecuted());
 

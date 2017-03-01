@@ -7,18 +7,25 @@ use PHPUnit\Framework\TestCase;
 
 class ConversationTest extends TestCase
 {
+    private $context;
+
+    protected function setUp()
+    {
+        $this->context = $this->createMock(ConversationContext::class);
+    }
+
     public function testConversationCanBeCreatedWithState()
     {
         $initialState = ConversationState::createWithoutActions('initial');
         $states = new StateSet($initialState);
-        $conversation = Conversation::create($states, new TransitionList(), $initialState);
+        $conversation = Conversation::create($states, new TransitionList(), $initialState, $this->context);
         static::assertEquals($initialState, $conversation->state());
     }
     public function testConversationCanReturnStateList()
     {
         $initialState = ConversationState::createWithoutActions('initial');
         $states = new StateSet($initialState, ConversationState::createWithoutActions('state-1'), ConversationState::createWithoutActions('state-2'));
-        $conversation = Conversation::create($states, new TransitionList(), $initialState);
+        $conversation = Conversation::create($states, new TransitionList(), $initialState, $this->context);
         static::assertEquals($states, $conversation->states());
     }
     public function testConversationCannotBeCreatedWithUnknownState()
@@ -27,14 +34,14 @@ class ConversationTest extends TestCase
         $states = new StateSet(ConversationState::createWithoutActions('only-something-else'));
 
         $this->expectException(\DomainException::class);
-        Conversation::create($states, new TransitionList(), $initialState);
+        Conversation::create($states, new TransitionList(), $initialState, $this->context);
     }
 
     public function testConversationCanBeCreatedInUnstartedState()
     {
         $initialState = ConversationState::createWithEntryActions('initial', new ActionList($this->actionExpectedNotToBeCalled()));
         $states = new StateSet($initialState);
-        $conversation = Conversation::createUnstarted($states, new TransitionList(), $initialState);
+        $conversation = Conversation::createUnstarted($states, new TransitionList(), $initialState, $this->context);
         static::assertInstanceOf(UnstartedState::class, $conversation->state());
     }
 
@@ -42,7 +49,7 @@ class ConversationTest extends TestCase
     {
         $initialState = ConversationState::createWithEntryActions('initial', new ActionList($this->actionExpectedToBeCalled()));
         $states = new StateSet($initialState);
-        $conversation = Conversation::createUnstarted($states, new TransitionList(), $initialState);
+        $conversation = Conversation::createUnstarted($states, new TransitionList(), $initialState, $this->context);
         static::assertSame($initialState, $conversation->continue()->state());
     }
 
@@ -52,7 +59,7 @@ class ConversationTest extends TestCase
         $states = new StateSet(ConversationState::createWithoutActions('only-something-else'));
 
         $this->expectException(\DomainException::class);
-        Conversation::createUnstarted($states, new TransitionList(), $initialState);
+        Conversation::createUnstarted($states, new TransitionList(), $initialState, $this->context);
     }
 
     public function testTransitionBasedOnTriggers()
@@ -68,7 +75,8 @@ class ConversationTest extends TestCase
                 ConversationTransition::createAnonymous($initialState, $alternateState, new TriggerList(new FixedTrigger(true))),
                 ConversationTransition::createAnonymous($alternateState, $initialState, new TriggerList(new FixedTrigger(true)))
             ),
-            $initialState
+            $initialState,
+            $this->context
         );
         static::assertEquals($initialState, $conversation->state());
         $conversation = $conversation->continue();
@@ -85,7 +93,8 @@ class ConversationTest extends TestCase
             new TransitionList(
                 ConversationTransition::createAnonymous($initialState, $nextState, new TriggerList(new FixedTrigger(true)))
             ),
-            $initialState
+            $initialState,
+            $this->context
         );
         static::assertNotSame($conversation, $conversation->continue(), 'continue() should return new object if state changed');
         static::assertEquals($initialState, $conversation->state(), 'Conversation should be immutable');
@@ -97,7 +106,8 @@ class ConversationTest extends TestCase
             new StateSet($initialState),
             new TransitionList(
             ),
-            $initialState
+            $initialState,
+            $this->context
         );
         static::assertSame($conversation, $conversation->continue(), 'continue() should return new object if state changed');
     }
@@ -110,7 +120,8 @@ class ConversationTest extends TestCase
             new TransitionList(
                 ConversationTransition::createAnonymous($initialState, $finalState, new TriggerList(new FixedTrigger(true)))
             ),
-            $initialState
+            $initialState,
+            $this->context
         );
         $conversation->continue()->continue();
     }

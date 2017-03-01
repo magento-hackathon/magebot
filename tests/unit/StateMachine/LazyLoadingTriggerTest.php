@@ -41,8 +41,8 @@ class LazyLoadingTriggerTest extends TestCase
 
         static::assertEquals($type, $lazyLoadingTrigger->type());
         static::assertEquals($parameters, $lazyLoadingTrigger->parameters());
-        static::assertFalse($lazyLoadingTrigger->activated());
-        static::assertFalse($lazyLoadingTrigger->activated());
+        static::assertFalse($lazyLoadingTrigger->activated($this->createMock(ConversationContext::class)));
+        static::assertFalse($lazyLoadingTrigger->activated($this->createMock(ConversationContext::class)));
 
     }
 }

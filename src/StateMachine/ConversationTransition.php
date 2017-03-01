@@ -39,9 +39,9 @@ final class ConversationTransition implements Transition
         return $this->target;
     }
 
-    public function triggeredAt(State $currentState) : bool
+    public function triggeredAt(State $currentState, ConversationContext $context) : bool
     {
-        return $currentState == $this->source && $this->triggers->anyActivated();
+        return $currentState == $this->source && $this->triggers->anyActivated($context);
     }
 
     /**

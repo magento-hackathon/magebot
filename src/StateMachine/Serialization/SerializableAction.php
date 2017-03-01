@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace FireGento\MageBot\StateMachine\Serialization;
 
 use FireGento\MageBot\StateMachine\Action;
+use FireGento\MageBot\StateMachine\ConversationContext;
 
 final class SerializableAction implements \Serializable, \JsonSerializable, Action
 {
@@ -77,9 +78,9 @@ final class SerializableAction implements \Serializable, \JsonSerializable, Acti
         return $this->action->parameters();
     }
 
-    public function execute()
+    public function execute(ConversationContext $context)
     {
-        $this->action->execute();
+        $this->action->execute($context);
     }
 
 }

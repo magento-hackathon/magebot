@@ -9,7 +9,7 @@ interface Transition
 
     public function target() : State;
 
-    public function triggeredAt(State $currentState) : bool;
+    public function triggeredAt(State $currentState, ConversationContext $context) : bool;
 
     public function toArray() : array;
 }

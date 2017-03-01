@@ -41,7 +41,7 @@ class SerializableActionTest extends TestCase
 
         static::assertEquals($parameters, $unserializedAction->parameters());
         static::assertEquals(0, $action->timesExecuted());
-        $unserializedAction->execute();
+        $unserializedAction->execute($this->createMock(ConversationContext::class));
         static::assertEquals(1, $action->timesExecuted());
     }
 
@@ -61,7 +61,7 @@ class SerializableActionTest extends TestCase
 
         static::assertEquals($parameters, $deserialized->parameters());
         static::assertEquals(0, $action->timesExecuted());
-        $deserialized->execute();
+        $deserialized->execute($this->createMock(ConversationContext::class));
         static::assertEquals(1, $action->timesExecuted());
     }
 }

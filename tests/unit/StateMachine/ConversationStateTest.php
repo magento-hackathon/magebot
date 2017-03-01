@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace FireGento\MageBot\StateMachine;
 
-use FireGento\MageBot\StateMachine\Serialization\NewActionFactory;
+use FireGento\MageBot\StateMachine\Serialization\FakeActionFactory;
 use FireGento\MageBot\StateMachine\Serialization\SerializableAction;
 use PHPUnit\Framework\TestCase;
 
@@ -11,7 +11,7 @@ class ConversationStateTest extends TestCase
 {
     protected function setUp()
     {
-        SerializableAction::setActionFactory(new NewActionFactory());
+        SerializableAction::setActionFactory(new FakeActionFactory());
     }
 
     protected function tearDown()
@@ -65,7 +65,7 @@ class ConversationStateTest extends TestCase
         /** @var ConversationState $unserializedState */
         $unserializedState = unserialize($serializedState);
         static::assertCount(2, $unserializedState->entryActions(), 'Unserialized state should still have two entry actions');
-        $unserializedState->entryActions()->executeAll();
+        $unserializedState->entryActions()->executeAll($this->createMock(ConversationContext::class));
     }
 
     public function testToArray()

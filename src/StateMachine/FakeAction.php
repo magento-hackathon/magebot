@@ -29,7 +29,7 @@ final class FakeAction implements Action
         return $this->parameters;
     }
 
-    public function execute()
+    public function execute(ConversationContext $context)
     {
         ++$this->timesExecuted;
     }

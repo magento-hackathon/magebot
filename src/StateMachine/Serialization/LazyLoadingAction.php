@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace FireGento\MageBot\StateMachine\Serialization;
 
 use FireGento\MageBot\StateMachine\Action;
+use FireGento\MageBot\StateMachine\ConversationContext;
 
 class LazyLoadingAction implements Action
 {
@@ -44,9 +45,9 @@ class LazyLoadingAction implements Action
         return $this->parameters;
     }
 
-    public function execute()
+    public function execute(ConversationContext $context)
     {
-        $this->loadedAction()->execute();
+        $this->loadedAction()->execute($context);
     }
 
     /**

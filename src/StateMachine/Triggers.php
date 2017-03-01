@@ -7,5 +7,5 @@ interface Triggers extends \Iterator, \JsonSerializable
 {
     public function current() : Trigger;
 
-    public function anyActivated() : bool;
+    public function anyActivated(ConversationContext $context) : bool;
 }

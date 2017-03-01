@@ -2,6 +2,7 @@
 
 namespace FireGento\MageBot;
 
+use FireGento\MageBot\Botman\ConversationDefinitions;
 use Mpociot\BotMan\BotMan;
 use Mpociot\BotMan\DriverManager;
 use Mpociot\BotMan\BotManFactory;
@@ -47,6 +48,11 @@ class MageBot
         /** @var BotMan $botman */
         $botman = BotManFactory::create($this->config->toArray(), $this->cache);
         $this->config->configureBotMan($botman);
+
+        // this is how it should work:
+//        $conversations = new ConversationDefinitionList(...$this->conversationRepository->findAllActive());
+//        $conversations->register($botman);
+        // ---
 
         $botman->hears('hi|hello|hallo', function (BotMan $bot) {
             $bot->reply('Hi! We sell really great stuff. But first, I\'ll ask you a few questions to understand your need.');

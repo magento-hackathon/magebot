@@ -14,6 +14,6 @@ class CallbackActionTest extends TestCase
             ->getMock();
         $callbackMock->expects(static::once())->method('__invoke');
         $action = new CallbackAction($callbackMock);
-        $action->execute();
+        $action->execute($this->createMock(ConversationContext::class));
     }
 }
