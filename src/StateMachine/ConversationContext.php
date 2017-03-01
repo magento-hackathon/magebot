@@ -11,7 +11,22 @@ namespace FireGento\MageBot\StateMachine;
  */
 interface ConversationContext extends \Serializable
 {
+    /**
+     * Set a custom variable that will be persisted for the conversation. It should be a serializable value
+     *
+     * @return void
+     */
     public function setPersistentVar(string $key, $value);
 
+    /**
+     * Return true if persistent variable with given name exists
+     */
+    public function hasPersistentVar(string $key) : bool;
+
+    /**
+     * Return a persisted custom variable by name
+     *
+     * @return mixed
+     */
     public function getPersistentVar(string $key);
 }

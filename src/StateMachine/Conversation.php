@@ -40,11 +40,17 @@ class Conversation implements StateMachine
         return new static($states, $transitions, $currentState, $context);
     }
 
+    public function context() : ConversationContext
+    {
+        return $this->context;
+    }
+
     public function state() : State
     {
         return $this->currentState;
     }
 
+    //TODO consider removing the states reference, it should only be needed in ConversationDefinition if at all
     public function states() : States
     {
         return $this->states;

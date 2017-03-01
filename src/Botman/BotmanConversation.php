@@ -15,14 +15,27 @@ class BotmanConversation extends BotMan\Conversation
 
     public function run()
     {
-        //TODO implement run()
-        //$this->continue();
+//        $this->continue(BotMan\Answer::create());
     }
 
-    public function continue()
+    /**
+     * continue() is used as central "next" callback for Botman. The first parameter is always an Answer object,
+     * the last one is the conversation itself (not needed here)
+     *
+     * Additional parameters are added for conditional callbacks with pattern matching, but we do not use these,
+     * everything is routed through continue() and handled by the state machine.
+     *
+     * @see \Mpociot\BotMan\BotMan::loadActiveConversation()
+     *
+     * @param BotMan\Answer $answer
+     */
+    public function continue(BotMan\Answer $answer)
     {
-        //$this->stateMachine->continue();
-        //$this->bot->storeConversation($this, [$this, 'continue']);
+//        /** @var BotmanConversationContext $context */
+//        $context = $this->stateMachine->context();
+//        $context->setAnswer($answer);
+//        $this->stateMachine->continue();
+//        $this->bot->storeConversation($this, [$this, 'continue']);
     }
 
 }
