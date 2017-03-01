@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace FireGento\MageBot\Botman;
 
-use FireGento\MageBot\StateMachine\Action;
 use FireGento\MageBot\StateMachine\ConversationContext;
 use Mpociot\BotMan\BotMan;
 use Mpociot\BotMan\Button;
@@ -12,7 +11,7 @@ use Mpociot\BotMan\Question;
 /**
  * Action for multiple choice questions
  */
-class QuestionAction implements Action
+class QuestionAction implements BotmanAction
 {
     const PARAM_ANSWERS = 'answers';
     const PARAM_MESSAGE = 'message';

@@ -3,14 +3,13 @@ declare(strict_types=1);
 
 namespace FireGento\MageBot\Botman;
 
-use FireGento\MageBot\StateMachine\Action;
 use FireGento\MageBot\StateMachine\ConversationContext;
 use Mpociot\BotMan\BotMan;
 
 /**
  * Action for simple text message
  */
-class MessageAction implements Action
+class MessageAction implements BotmanAction
 {
     const PARAM_MESSAGE = 'message';
     /**

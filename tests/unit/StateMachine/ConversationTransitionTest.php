@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace FireGento\MageBot\StateMachine;
 
-use FireGento\MageBot\StateMachine\Serialization\NewTriggerFactory;
+use FireGento\MageBot\StateMachine\Serialization\FakeTriggerFactory;
 use FireGento\MageBot\StateMachine\Serialization\SerializableTrigger;
 use PHPUnit\Framework\TestCase;
 use const true;
@@ -12,7 +12,7 @@ class ConversationTransitionTest extends TestCase
 {
     protected function setUp()
     {
-        SerializableTrigger::setTriggerFactory(new NewTriggerFactory());
+        SerializableTrigger::setTriggerFactory(new FakeTriggerFactory());
     }
 
     protected function tearDown()

@@ -9,7 +9,8 @@ use FireGento\MageBot\StateMachine\Conversation;
 use FireGento\MageBot\StateMachine\ConversationState;
 use FireGento\MageBot\StateMachine\ConversationTransition;
 use FireGento\MageBot\StateMachine\Serialization\ActionFactory;
-use FireGento\MageBot\StateMachine\Serialization\NewActionFactory;
+use FireGento\MageBot\StateMachine\Serialization\FakeActionFactory;
+use FireGento\MageBot\StateMachine\Serialization\FakeTriggerFactory;
 use FireGento\MageBot\StateMachine\Serialization\NewTriggerFactory;
 use FireGento\MageBot\StateMachine\Serialization\SerializableAction;
 use FireGento\MageBot\StateMachine\Serialization\SerializableTrigger;
@@ -57,25 +58,8 @@ class BotmanConversationTest extends TestCase
         );
         $conversationDefinitions->register($this->botman);
 
-        //TODO implement real Botman{Trigger|Action}Factory classes
-        SerializableAction::setActionFactory(new class($this->botman) implements ActionFactory {
-            private $botman;
-            public function __construct(BotMan $botman)
-            {
-                $this->botman = $botman;
-            }
-
-            public function create(string $type, array $parameters) : Action
-            {
-                return new $type($this->botman, ...array_values($parameters));
-            }
-        });
-        SerializableTrigger::setTriggerFactory(new class implements TriggerFactory {
-            public function create(string $type, array $parameters) : Trigger
-            {
-                return new $type(...array_values($parameters));
-            }
-        });
+        SerializableAction::setActionFactory(new BotmanActionFactory($this->botman));
+        SerializableTrigger::setTriggerFactory(new NewTriggerFactory);
     }
 
     protected function tearDown()
